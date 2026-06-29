@@ -7,5 +7,5 @@
 ## CI badge  (lint + build)
 [![CI](https://github.com/luisfelipemontoya/fullstack-javascript-project-137/actions/workflows/build.yml/badge.svg)](https://github.com/luisfelipemontoya/fullstack-javascript-project-137/actions/workflows/build.yml)
 
-##Sonar badge → Calidad del código (Directamente de Sonar)
+##Sonar badge 
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=luisfelipemontoya_fullstack-javascript-project-137)

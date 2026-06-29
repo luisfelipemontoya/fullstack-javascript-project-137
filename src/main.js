@@ -2,6 +2,11 @@ import './style.css';
 import { proxy } from 'valtio/vanilla';
 import validateUrl from "./utils/validation.js";
 import watch from "./view.js";
+import initI18n from "./i18n.js";
+
+initI18n().then(() => {
+  console.log("i18next listo");
+});
 
 const state = proxy({
  feeds: [],
