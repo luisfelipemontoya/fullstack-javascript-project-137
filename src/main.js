@@ -1,4 +1,5 @@
-import "./style.css";
+import './style.css';
+import validateUrl from "./utils/validation.js";
 
 const app = document.querySelector("#app");
 
@@ -46,3 +47,25 @@ app.innerHTML = `
     </div>
   </div>
 `;
+
+const form = document.querySelector('form');
+const input = document.querySelector('#rss-url');
+const feedback = document.querySelector('#feedback'); 
+
+const feeds = [];
+
+form.addEventListener('submit', (e) => {
+ e.preventDefault();
+
+ const url = input.value;
+
+  validateUrl(url, feeds)
+    .then(() => {
+      feedback.textContent = 'URL válida';
+
+      feeds.push(url);
+    })
+    .catch((error) => {
+      feedback.textContent = error.message;
+    });
+}); 
