@@ -1,5 +1,14 @@
 import './style.css';
+import { proxy } from 'valtio/vanilla';
 import validateUrl from "./utils/validation.js";
+import watch from "./view.js";
+
+const state = proxy({
+ feeds: [],
+ form: {
+ error: null,
+ },
+});
 
 const app = document.querySelector("#app");
 
@@ -47,25 +56,26 @@ app.innerHTML = `
     </div>
   </div>
 `;
+watch(state);
 
 const form = document.querySelector('form');
 const input = document.querySelector('#rss-url');
-const feedback = document.querySelector('#feedback'); 
-
-const feeds = [];
 
 form.addEventListener('submit', (e) => {
  e.preventDefault();
 
  const url = input.value;
 
-  validateUrl(url, feeds)
+  validateUrl(url, state.feeds)
     .then(() => {
-      feedback.textContent = 'URL válida';
+      state.form.error = null;
 
-      feeds.push(url);
+      state.feeds.push(url);
+
+      input.value = "";
+      input.focus();
     })
     .catch((error) => {
-      feedback.textContent = error.message;
+      state.form.error = error.message;
     });
-}); 
+});

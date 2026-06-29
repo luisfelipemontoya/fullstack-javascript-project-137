@@ -4,7 +4,7 @@ const validateUrl = (url, feeds = []) => {
   const schema = yup
     .string()
     .required('No puede estar vacío')
-    .url('El enlace debe ser una URL válida')
+    .url('Debes ingresar una URL válida')
     .test('unique', 'RSS ya existe', (value) => !feeds.includes(value));
  
   return schema.validate(url);
