@@ -6,10 +6,7 @@ import initI18n from "./i18n.js";
 import loadFeed from "./services/loadFeed.js";
 import parseRss from "./utils/parseRss.js";
 
-initI18n().then(() => {
-  console.log("i18next listo");
-});
-
+const startApp = () => {
 const state = proxy({
  feeds: [],
  posts: [],
@@ -80,7 +77,6 @@ form.addEventListener('submit', (e) => {
   validateUrl(url, state.feeds)
   .then(() => loadFeed(url))
     .then((response) => {
-      state.form.error = null;
         const data = parseRss(response.data.contents);
         state.feeds.push(data.feed);
         state.posts.push(...data.posts); 
@@ -96,3 +92,6 @@ form.addEventListener('submit', (e) => {
       state.form.error = error.message;
     });
 });
+};
+
+initI18n().then(startApp);
