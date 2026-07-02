@@ -3,6 +3,8 @@ import { proxy } from 'valtio/vanilla';
 import validateUrl from "./utils/validation.js";
 import watch from "./view.js";
 import initI18n from "./i18n.js";
+import loadFeed from "./services/loadFeed.js";
+import parseRss from "./utils/parseRss.js";
 
 initI18n().then(() => {
   console.log("i18next listo");
@@ -72,10 +74,14 @@ form.addEventListener('submit', (e) => {
  const url = input.value;
 
   validateUrl(url, state.feeds)
-    .then(() => {
+  .then(() => loadFeed(url))
+    .then((response) => {
       state.form.error = null;
+        const data = parseRss(response.data.contents);
+      
+      console.log(data);
 
-      state.feeds.push(url);
+      state.form.error = null;
 
       input.value = "";
       input.focus();
