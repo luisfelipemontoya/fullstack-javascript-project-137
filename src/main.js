@@ -12,6 +12,7 @@ initI18n().then(() => {
 
 const state = proxy({
  feeds: [],
+ posts: [],
  form: {
  error: null,
  },
@@ -78,7 +79,11 @@ form.addEventListener('submit', (e) => {
     .then((response) => {
       state.form.error = null;
         const data = parseRss(response.data.contents);
-      
+        state.feeds.push(data.feed);
+        state.posts.push(...data.posts);
+        console.log(state.feeds);
+        console.log(state.posts);       
+
       console.log(data);
 
       state.form.error = null;
