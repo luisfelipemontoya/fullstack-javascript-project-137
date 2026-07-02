@@ -60,6 +60,9 @@ app.innerHTML = `
 
         </form>
 
+        <div id="feeds"></div>
+        <div id="posts"></div>
+
       </div>
     </div>
   </div>
@@ -80,9 +83,7 @@ form.addEventListener('submit', (e) => {
       state.form.error = null;
         const data = parseRss(response.data.contents);
         state.feeds.push(data.feed);
-        state.posts.push(...data.posts);
-        console.log(state.feeds);
-        console.log(state.posts);       
+        state.posts.push(...data.posts); 
 
       console.log(data);
 
