@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 const parseRss = (xml) => {
   const parser = new DOMParser();
 
@@ -21,7 +23,9 @@ const parseRss = (xml) => {
 
   const posts = [...document.querySelectorAll("item")]
     .map((item) => ({
+      id: uuidv4(),
       title: item.querySelector("title").textContent,
+      description: item.querySelector("description")?.textContent ?? "",
       link: item.querySelector("link").textContent,
     }));
 
