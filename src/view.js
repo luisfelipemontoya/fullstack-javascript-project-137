@@ -4,7 +4,7 @@ import i18next from "i18next";
 const render = (state) => {
   const feedback = document.querySelector("#feedback");
   const feedsContainer = document.querySelector("#feeds");
-  //const postsContainer = document.querySelector("#posts");
+  const postsContainer = document.querySelector("#posts");
 
   feedback.textContent = state.form.error
     ? i18next.t(`errors.${state.form.error}`)
@@ -24,6 +24,25 @@ if (state.feeds.length > 0) {
         .join("")}
     `;
   }
+
+if (state.posts.length > 0) {
+  postsContainer.innerHTML = `
+    <h2>Posts</h2>
+    <ul>
+      ${state.posts
+        .map(
+          (post) => `
+            <li>
+              <a href="${post.link}" target="_blank" rel="noopener noreferrer">
+                ${post.title}
+              </a>
+            </li>
+          `,
+        )
+        .join("")}
+    </ul>
+  `;
+}
 };
 
 const watch = (state) => {
