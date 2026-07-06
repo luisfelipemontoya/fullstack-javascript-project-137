@@ -77,7 +77,9 @@ form.addEventListener('submit', (e) => {
 
  const url = input.value;
 
-  validateUrl(url, state.feeds)
+  validateUrl(url,
+    state.feeds.map((feed) => feed.url),
+  )
   .then(() => loadFeed(url))
     .then((response) => {
         const data = parseRss(response.data.contents);
@@ -85,16 +87,13 @@ form.addEventListener('submit', (e) => {
           ...data.feed,
         url,
         });
-        console.log(state.feeds); 
-        state.posts.push(...data.posts); 
+        state.posts.push(...data.posts);
 
-      console.log(data);
+        state.form.error = null;
 
-      state.form.error = null;
-
-      input.value = "";
-      input.focus();
-    })
+        input.value = "";
+        input.focus();
+      })
     .catch((error) => {
       state.form.error = error.message;
     });

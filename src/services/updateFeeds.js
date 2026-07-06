@@ -12,14 +12,12 @@ const updateFeeds = (state) => {
         const newPosts = data.posts.filter(
           (post) => !existingLinks.includes(post.link),
         );
-        console.log(`nuevos: ${newPosts.length}`);
+        
         if (newPosts.length > 0) {
         state.posts.unshift(...newPosts);
         }        
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(() => {});
   });
 
   setTimeout(() => {
