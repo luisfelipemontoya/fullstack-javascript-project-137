@@ -5,6 +5,7 @@ import watch from "./view.js";
 import initI18n from "./i18n.js";
 import loadFeed from "./services/loadFeed.js";
 import parseRss from "./utils/parseRss.js";
+import updateFeeds from "./services/updateFeeds.js";
 
 const startApp = () => {
 const state = proxy({
@@ -66,6 +67,8 @@ app.innerHTML = `
 `;
 watch(state);
 
+updateFeeds(state);
+
 const form = document.querySelector('form');
 const input = document.querySelector('#rss-url');
 
@@ -78,7 +81,11 @@ form.addEventListener('submit', (e) => {
   .then(() => loadFeed(url))
     .then((response) => {
         const data = parseRss(response.data.contents);
-        state.feeds.push(data.feed);
+        state.feeds.push({
+          ...data.feed,
+        url,
+        });
+        cosole.log(state.feeds); 
         state.posts.push(...data.posts); 
 
       console.log(data);
