@@ -85,7 +85,7 @@ form.addEventListener('submit', (e) => {
           ...data.feed,
         url,
         });
-        cosole.log(state.feeds); 
+        console.log(state.feeds); 
         state.posts.push(...data.posts); 
 
       console.log(data);
