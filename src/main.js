@@ -12,7 +12,9 @@ const state = proxy({
  feeds: [],
  posts: [],
  form: {
- error: null,
+   error: null,
+   success: null,
+
  },
 });
 
@@ -75,6 +77,8 @@ const input = document.querySelector('#rss-url');
 form.addEventListener('submit', (e) => {
  e.preventDefault();
 
+ state.form.success = null;
+
  const url = input.value;
 
   validateUrl(url,
@@ -90,11 +94,16 @@ form.addEventListener('submit', (e) => {
         state.posts.push(...data.posts);
 
         state.form.error = null;
+        state.form.success = 'loaded';
 
         input.value = "";
         input.focus();
       })
     .catch((error) => {
+      if (error.isAxiosError) {
+        state.form.error = 'networkError';
+        return;
+      }
       state.form.error = error.message;
     });
 });

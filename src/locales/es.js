@@ -8,7 +8,7 @@ export default {
       required: 'No puede estar vacío',
       invalidUrl: 'Debes ingresar una URL válida',
       duplicate: 'El RSS ya existe',
-      invalidRss: 'El recurso no contiene un RSS valido',
+      invalidRss: 'El recurso no contiene un RSS válido',
       networkError: 'Error de red',
     },
   },

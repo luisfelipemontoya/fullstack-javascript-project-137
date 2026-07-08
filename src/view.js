@@ -6,9 +6,13 @@ const render = (state) => {
   const feedsContainer = document.querySelector("#feeds");
   const postsContainer = document.querySelector("#posts");
 
-  feedback.textContent = state.form.error
-    ? i18next.t(`errors.${state.form.error}`)
-    : '';
+if (state.form.error) {
+  feedback.textContent = i18next.t(`errors.${state.form.error}`);
+} else if (state.form.success) {
+  feedback.textContent = i18next.t(`success.${state.form.success}`);
+} else {
+  feedback.textContent = "";
+}
 if (state.feeds.length > 0) {
     feedsContainer.innerHTML = `
       <h2>Feeds</h2>
