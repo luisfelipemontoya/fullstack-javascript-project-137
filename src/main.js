@@ -11,6 +11,11 @@ const startApp = () => {
 const state = proxy({
  feeds: [],
  posts: [],
+ viewedPosts: [],
+ ui: {
+   modalPostId: null,
+ },
+
  form: {
    error: null,
    success: null,
@@ -73,6 +78,24 @@ updateFeeds(state);
 
 const form = document.querySelector('form');
 const input = document.querySelector('#rss-url');
+
+document.addEventListener("click", (e) => {
+  const button = e.target.closest("[data-id]");
+
+  if (!button) {
+    return;
+  }
+
+  const { id } = button.dataset;
+
+  state.ui.modalPostId = id;
+
+  if (!state.viewedPosts.includes(id)) {
+    state.viewedPosts.push(id);
+  }
+  console.log(state.ui.modalPostId);
+  console.log(state.viewedPosts);
+});
 
 form.addEventListener('submit', (e) => {
  e.preventDefault();

@@ -35,14 +35,25 @@ if (state.posts.length > 0) {
     <ul>
       ${state.posts
         .map(
-          (post) => `
-            <li>
-              <a href="${post.link}" target="_blank" rel="noopener noreferrer">
+          (post) =>  {
+            const isViewed = state.viewedPosts.includes(post.id);
+
+            return `
+            <li class="d-flex justify-content-between align-items-start mb-2">
+              <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="${isViewed ? 'fw-normal link-secondary' : 'fw-bold'}" 
+              >
                 ${post.title}
               </a>
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                data-id="${post.id}"
+              >
+                Vista previa
+              </button>
             </li>
-          `,
-        )
+          `;
+        })
         .join("")}
     </ul>
   `;
