@@ -6,6 +6,7 @@ import initI18n from "./i18n.js";
 import loadFeed from "./services/loadFeed.js";
 import parseRss from "./utils/parseRss.js";
 import updateFeeds from "./services/updateFeeds.js";
+import * as bootstrap from "bootstrap";
 
 const startApp = () => {
 const state = proxy({
@@ -68,6 +69,42 @@ app.innerHTML = `
         <div id="feeds"></div>
         <div id="posts"></div>
 
+       <div class="modal fade" id="previewModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <p></p>
+          </div>
+
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Leer completo
+            </a>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+          >
+          Cerrar
+        </button>
+      </div>
+
       </div>
     </div>
   </div>
@@ -76,6 +113,8 @@ watch(state);
 
 updateFeeds(state);
 
+const modalElement = document.querySelector("#previewModal");
+const modal = new bootstrap.Modal(modalElement);
 const form = document.querySelector('form');
 const input = document.querySelector('#rss-url');
 
@@ -93,8 +132,18 @@ document.addEventListener("click", (e) => {
   if (!state.viewedPosts.includes(id)) {
     state.viewedPosts.push(id);
   }
-  console.log(state.ui.modalPostId);
-  console.log(state.viewedPosts);
+
+  const post = state.posts.find((item) => item.id === id);
+
+  modalElement.querySelector(".modal-title").textContent = post.title;
+
+  modalElement.querySelector(".modal-body p").textContent =
+    post.description;
+
+  modalElement.querySelector(".modal-footer a").href =
+    post.link;
+
+  modal.show();
 });
 
 form.addEventListener('submit', (e) => {
