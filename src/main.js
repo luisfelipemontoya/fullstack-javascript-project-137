@@ -66,8 +66,8 @@ app.innerHTML = `
 
         </form>
 
-        <div id="feeds"></div>
-        <div id="posts"></div>
+        <div id="feeds" class="feeds"></div>
+        <div id="posts" class="posts"></div>
 
        <div class="modal fade" id="previewModal" tabindex="-1">
         <div class="modal-dialog">
@@ -89,6 +89,7 @@ app.innerHTML = `
 
           <div class="modal-footer">
             <a
+              href="#"
               class="btn btn-primary"
               target="_blank"
               rel="noopener noreferrer"
@@ -119,31 +120,31 @@ const form = document.querySelector('form');
 const input = document.querySelector('#rss-url');
 
 document.addEventListener("click", (e) => {
-  const button = e.target.closest("[data-id]");
+  const element = e.target.closest("[data-id]");
 
-  if (!button) {
+  if (!element) {
     return;
   }
 
-  const { id } = button.dataset;
-
-  state.ui.modalPostId = id;
+  const { id } = element.dataset;
 
   if (!state.viewedPosts.includes(id)) {
     state.viewedPosts.push(id);
   }
 
+  if (element.tagName === 'BUTTON') {
   const post = state.posts.find((item) => item.id === id);
 
-  modalElement.querySelector(".modal-title").textContent = post.title;
+  state.ui.modalPostId = id;
 
+  modalElement.querySelector(".modal-title").textContent = post.title;
   modalElement.querySelector(".modal-body p").textContent =
     post.description;
-
   modalElement.querySelector(".modal-footer a").href =
     post.link;
 
   modal.show();
+  }
 });
 
 form.addEventListener('submit', (e) => {

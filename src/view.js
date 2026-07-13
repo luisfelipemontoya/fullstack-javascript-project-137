@@ -13,26 +13,35 @@ if (state.form.error) {
 } else {
   feedback.textContent = "";
 }
-if (state.feeds.length > 0) {
-    feedsContainer.innerHTML = `
-      <h2>Feeds</h2>
+
+  feedsContainer.innerHTML = `
+    <div class="card border-0">
+      <div class="card-body">
+        <h2 class="card-title h4">Feeds</h2>
+    </div>
+
+      <ul class="list-group border-0 rounded-0">
       ${state.feeds
         .map(
           (feed) => `
-            <div>
-              <h3>${feed.title}</h3>
-              <p>${feed.description}</p>
-            </div>
+            <li class="list-group-item border-0 border-end-0">
+              <h3 class="h6 m-0">${feed.title}</h3>
+              <p class="m-0 small text-black-50">${feed.description}</p>
+            </li>
           `,
         )
         .join("")}
+      </ul>
+    </div>
     `;
-  }
 
-if (state.posts.length > 0) {
   postsContainer.innerHTML = `
-    <h2>Posts</h2>
-    <ul>
+    <div class="card border-0">
+        <div class="card-body">
+          <h2 class="card-title h4">Posts</h2>
+        </div>
+        
+      <ul class="list-group border-top-0 rounded-0">
       ${state.posts
         .map(
           (post) =>  {
@@ -40,7 +49,7 @@ if (state.posts.length > 0) {
 
             return `
             <li class="d-flex justify-content-between align-items-start mb-2">
-              <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="${isViewed ? 'fw-normal link-secondary' : 'fw-bold'}" 
+              <a data-id="${post.id}" href="${post.link}" target="_blank" rel="noopener noreferrer" class="${isViewed ? 'fw-normal link-secondary' : 'fw-bold'}" 
               >
                 ${post.title}
               </a>
@@ -57,8 +66,8 @@ if (state.posts.length > 0) {
         .join("")}
     </ul>
   `;
-}
 };
+
 
 const watch = (state) => {
   render(state);
