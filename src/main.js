@@ -45,6 +45,7 @@ app.innerHTML = `
               id="rss-url"
               name="url"
               aria-label="url"
+              autocomplete="off"
               type="text"
               class="form-control"
               placeholder="https://example.com/feed.xml"
@@ -69,7 +70,7 @@ app.innerHTML = `
         <div id="feeds" class="feeds"></div>
         <div id="posts" class="posts"></div>
 
-       <div class="modal fade" id="previewModal" tabindex="-1">
+       <div class="modal fade" id="modal" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
 
@@ -114,7 +115,7 @@ watch(state);
 
 updateFeeds(state);
 
-const modalElement = document.querySelector("#previewModal");
+const modalElement = document.querySelector("#modal");
 const modal = new bootstrap.Modal(modalElement);
 const form = document.querySelector('form');
 const input = document.querySelector('#rss-url');
