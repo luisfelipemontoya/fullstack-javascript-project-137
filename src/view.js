@@ -1,10 +1,13 @@
 import { subscribe } from "valtio/vanilla";
 import i18next from "i18next";
 
-const render = (state) => {
+const render = (state) => {  
   const feedback = document.querySelector("#feedback");
   const feedsContainer = document.querySelector("#feeds");
   const postsContainer = document.querySelector("#posts");
+
+  const input = document.querySelector("#rss-url");
+  const submitButton = document.querySelector('button[type="submit"]');
 
 if (state.form.error) {
   feedback.textContent = i18next.t(`errors.${state.form.error}`);
@@ -22,10 +25,17 @@ if (state.form.error) {
   feedback.classList.remove("text-danger", "text-success");
 }
 
+input.disabled = state.form.loading;
+submitButton.disabled = state.form.loading;
+
+submitButton.textContent = state.form.loading
+  ? i18next.t("loading")
+  : i18next.t("add");
+
   feedsContainer.innerHTML = `
     <div class="card border-0 shadow-sm">
       <div class="card-body">
-        <h2 class="card-title h4">Feeds</h2>
+        <h2 class="card-title h4">${i18next.t("feeds")}</h2>
     </div>
 
       <ul class="list-group list-group-flush border-0 rounded-0">
@@ -46,7 +56,7 @@ if (state.form.error) {
   postsContainer.innerHTML = `
     <div class="card border-0 shadow-sm">
         <div class="card-body">
-          <h2 class="card-title h4">Posts</h2>
+          <h2 class="card-title h4">${i18next.t("posts")}</h2>
         </div>
 
       <ul class="list-group list-group-flush border-top-0 rounded-0">
@@ -67,7 +77,7 @@ if (state.form.error) {
                 class="btn btn-outline-primary btn-sm flex-shrink-0"
                 data-id="${post.id}"
               >
-                Vista previa
+                ${i18next.t("preview")}
               </button>
             </li>
           `;

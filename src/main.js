@@ -20,6 +20,7 @@ const state = proxy({
  form: {
    error: null,
    success: null,
+   loading: false,
 
  },
 });
@@ -37,7 +38,7 @@ app.innerHTML = `
         </h1>
 
         <p class="lead text-muted">
-          Empieza a leer RSS hoy. Es fácil, bonito.
+          Start reading RSS today! It's simple and lovely.
         </p>
 
         <form>
@@ -171,6 +172,7 @@ form.addEventListener('submit', (e) => {
  e.preventDefault();
 
  state.form.success = null;
+ state.form.loading = true;
 
  const url = input.value;
 
@@ -188,11 +190,14 @@ form.addEventListener('submit', (e) => {
 
         state.form.error = null;
         state.form.success = 'loaded';
+        state.form.loading = false;
 
         input.value = "";
         input.focus();
       })
     .catch((error) => {
+    state.form.loading = false;
+
       if (error.isAxiosError) {
         state.form.error = 'networkError';
         return;
