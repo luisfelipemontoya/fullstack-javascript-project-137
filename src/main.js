@@ -27,15 +27,22 @@ const state = proxy({
 const app = document.querySelector("#app");
 
 app.innerHTML = `
+<header class="bg-dark text-white py-5">
   <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-lg-8">
 
-        <h1>RSS Reader</h1>
+        <h1 class="display-3 fw-bold">
+            RSS Reader
+        </h1>
+
+        <p class="lead text-muted">
+          Empieza a leer RSS hoy. Es fácil, bonito.
+        </p>
 
         <form>
 
-          <label for="rss-url">
+          <label for="rss-url" class="form-label">
             RSS link
           </label>
 
@@ -47,31 +54,43 @@ app.innerHTML = `
               aria-label="url"
               autocomplete="off"
               type="text"
-              class="form-control"
+              class="form-control form-control -lg"
               placeholder="https://example.com/feed.xml"
             >
 
             <button
               type="submit"
-              class="btn btn-primary"
+              class="btn btn-primary btn-lg px-5"
             >
               Añadir
             </button>
-
           </div>
 
           <p
             id="feedback"
-            class="feedback"
+            class="feedback mt-2"
           ></p>
-
         </form>
 
-        <div id="feeds" class="feeds"></div>
-        <div id="posts" class="posts"></div>
+      </div>
+    </div>
+  </div>
+</header>
 
-       <div class="modal fade" id="modal" tabindex="-1">
-        <div class="modal-dialog">
+<main class="container my-5">
+  <div class="row g-4">
+
+    <div class="col-lg-8 order-1">
+        <div id="posts" class="posts"></div>
+    </div>
+    <div class="col-lg-4 order-0">
+        <div id="feeds" class="feeds"></div>
+    </div>
+  </div>
+</main>
+
+       <div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
 
             <div class="modal-header">
@@ -81,6 +100,7 @@ app.innerHTML = `
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
+              aria-label="Close"
             ></button>
           </div>
 
@@ -106,10 +126,9 @@ app.innerHTML = `
           Cerrar
         </button>
       </div>
-
-      </div>
     </div>
   </div>
+</div>   
 `;
 watch(state);
 
