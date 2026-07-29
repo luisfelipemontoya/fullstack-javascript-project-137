@@ -17,16 +17,16 @@ const parseRss = (xml) => {
   const channel = document.querySelector("channel");
 
   const feed = {
-    title: channel.querySelector("title").textContent,
-    description: channel.querySelector("description").textContent,
+    title: channel.querySelector("title")?.textContent ?? "",
+    description: channel.querySelector("description")?.textContent ?? "",
   };
 
   const posts = [...document.querySelectorAll("item")]
     .map((item) => ({
       id: uuidv4(),
-      title: item.querySelector("title").textContent,
+      title: item.querySelector("title")?.textContent ?? "",
       description: item.querySelector("description")?.textContent ?? "",
-      link: item.querySelector("link").textContent,
+      link: item.querySelector("link")?.textContent ?? "",
     }));
 
   return { feed, posts };

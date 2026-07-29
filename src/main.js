@@ -7,6 +7,7 @@ import loadFeed from "./services/loadFeed.js";
 import parseRss from "./utils/parseRss.js";
 import updateFeeds from "./services/updateFeeds.js";
 import * as bootstrap from "bootstrap";
+import i18next from 'i18next';
 
 const startApp = () => {
 const state = proxy({
@@ -34,17 +35,17 @@ app.innerHTML = `
       <div class="col-lg-8">
 
         <h1 class="display-3 fw-bold">
-            RSS Reader
+            ${i18next.t("title")}
         </h1>
 
         <p class="lead text-muted">
-          Start reading RSS today! It's simple and lovely.
+          ${i18next.t("subtitle")}
         </p>
 
         <form>
 
           <label for="rss-url" class="form-label">
-            RSS link
+            ${i18next.t("rssLink")}
           </label>
 
           <div class="input-group">
@@ -116,7 +117,7 @@ app.innerHTML = `
               target="_blank"
               rel="noopener noreferrer"
             >
-              Leer completo
+              ${i18next.t("readFull")}
             </a>
 
             <button
@@ -124,7 +125,7 @@ app.innerHTML = `
               class="btn btn-secondary"
               data-bs-dismiss="modal"
           >
-          Cerrar
+          ${i18next.t("close")}
         </button>
       </div>
     </div>
@@ -196,6 +197,7 @@ form.addEventListener('submit', (e) => {
         input.focus();
       })
     .catch((error) => {
+      console.log(error);
     state.form.loading = false;
 
       if (error.isAxiosError) {

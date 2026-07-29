@@ -1,12 +1,18 @@
 export default {
   translation: {
+    title: 'RSS Reader',
+    subtitle: "Start reading RSS today! It's simple and lovely.",
+    rssLink: 'RSS link',
+
     add: 'Añadir',
     loading: 'Cargando...',
 
     feeds: 'Feeds',
     posts: 'Posts',
 
-    preview: 'Vista previa',    
+    preview: 'Vista previa',
+    readFull: 'Leer completo',
+    close: 'Cerrar',    
 
     success: {
       loaded: 'El RSS se cargó correctamente',
