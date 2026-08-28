@@ -10,6 +10,7 @@ import * as bootstrap from "bootstrap";
 import i18next from 'i18next';
 
 const startApp = () => {
+  document.title = i18next.t("title");
 const state = proxy({
  feeds: [],
  posts: [],
@@ -64,7 +65,7 @@ app.innerHTML = `
               type="submit"
               class="btn btn-primary btn-lg px-5"
             >
-              Añadir
+              ${i18next.t("add")}
             </button>
           </div>
 
@@ -102,7 +103,7 @@ app.innerHTML = `
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
-              aria-label="Close"
+              aria-label="${i18next.t("close")}"
             ></button>
           </div>
 
